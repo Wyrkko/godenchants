@@ -1,25 +1,28 @@
-name: Build Mod
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
+   name: Build Mod
+   on:
+     push:
+     workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: temurin
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.12
-      - name: Build
-        run: gradle build --no-daemon
-      - name: Upload jar
-        uses: actions/upload-artifact@v4
-        with:
-          name: GodWeapons-mod
-          path: build/libs/*.jar
+   jobs:
+     build:
+       runs-on: ubuntu-24.04
+       defaults:
+         run:
+           working-directory: YOUR_FOLDER
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-java@v4
+           with:
+             java-version: 21
+             distribution: temurin
+         - uses: gradle/actions/setup-gradle@v4
+           with:
+             gradle-version: 8.12
+             build-root-directory: YOUR_FOLDER
+         - name: Build
+           run: gradle build --no-daemon
+         - name: Upload jar
+           uses: actions/upload-artifact@v4
+           with:
+             name: GodWeapons-mod
+             path: YOUR_FOLDER/build/libs/*.jar
