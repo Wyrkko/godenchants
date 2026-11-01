@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": ["ENE", "ENE", " T "],
+  "key": {
+    "E": { "item": "minecraft:ender_eye" },
+    "N": { "item": "minecraft:netherite_ingot" },
+    "T": { "item": "minecraft:nether_star" }
+  },
+  "result": { "id": "godweapons:void_reaper", "count": 1 }
+}
