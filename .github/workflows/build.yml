@@ -15,10 +15,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.12
+      - name: Show repo files
+        run: find . -not -path './.git/*' -type f | head -100
       - name: Build
-        run: gradle build --no-daemon
+        run: |
+          FILE=$(find . -name settings.gradle -not -path './.git/*' | head -1)
+          if [ -z "$FILE" ]; then
+            echo "NO settings.gradle FOUND ANYWHERE IN THE REPO"
+            exit 1
+          fi
+          cd "$(dirname "$FILE")"
+          echo "Building in $(pwd)"
+          gradle build --no-daemon
       - name: Upload jar
         uses: actions/upload-artifact@v4
         with:
           name: GodWeapons-mod
-          path: build/libs/*.jar
+          path: "**/build/libs/*.jar"
